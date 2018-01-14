@@ -128,6 +128,21 @@ fn test_long_string_value() {
 }
 
 #[test]
+fn test_strings_vector_value() {
+    with_key!(key, "StringsVectorValue" => {
+        let name = "RustStringsVectorVal";
+
+        let mut val1 = Vec::new();
+        val1.push("lorem ipsum \ndolor");
+        val1.push("sit amet");
+        key.set_value(name, &val1).unwrap();
+        let val2: Vec<String> = key.get_value(name).unwrap();
+
+        assert_eq!(val1, val2);
+    });
+}
+
+#[test]
 fn test_os_string_value() {
     with_key!(key, "OsStringValue" => {
         let name = "RustOsStringVal";
